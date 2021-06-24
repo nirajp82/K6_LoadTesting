@@ -125,6 +125,7 @@ export let options = {
 In other words, you specify the pass criteria when defining your threshold, and if that expression evaluates to false at the end of the test, the whole test will be considered a fail.
 
 K6 Lifecycle:
+k6 LifeCycle:![image](https://github.com/nirajp82/K6_LoadTesting/blob/main/K6LifeCycle.png)
 ```
 // 1. init code
 
