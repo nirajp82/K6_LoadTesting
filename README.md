@@ -103,8 +103,8 @@ export let options = {
 ** Any conditions on any Custom metric.
 	     Thresholds analyze the performance metrics and determine the final test result (pass/fail). Thresholds are a essential for load-testing automation.
 	     Here is a sample script that specifies two thresholds, one evaluating the rate of http errors (http_req_failed metric) and one using the 95 percentile of all the response durations (the http_req_duration metric).
-	
- ```
+
+```
 	import http from 'k6/http';
 	
 	export let options = {
@@ -120,16 +120,52 @@ export let options = {
 	export default function () {
 	  http.get('https://test-api.k6.io/public/crocodiles/1/');
 	}
-``` 
+```
 
 In other words, you specify the pass criteria when defining your threshold, and if that expression evaluates to false at the end of the test, the whole test will be considered a fail.
-![image](https://user-images.githubusercontent.com/61636643/123272320-a36bc580-d4cf-11eb-996f-87c1b5797305.png)
+
+K6 Lifecycle:
+```
+// 1. init code
+
+export function setup() {
+  //
+  let data = {};
+  data.batchid = 1;
+  //This will be input of default method.
+  return data;
+}
+
+export default function (data) {
+  // 3. VU code
+}
+
+export function teardown(data) {
+  // 4. teardown code
+}
+```
+
+* **Shared Array**
+        SharedArray is an array-like object that shares the underlying memory between VUs. Its constructor takes a name for the SharedArray and a function which needs to return an array object itself. The function will be executed only once and its result will then be saved in memory once and copies of the elements will be given when requested. The name is needed as VUs are completely separate JS VMs and k6 needs some way to identify the SharedArrays that it needs to return.
+Everything about SharedArray is read-only once it is constructed, so it is not possible to communicate between VUs using it.
+
+Supported operations include:
+
+	1. getting the number of elements with length
+	2. getting an element by its index using the normal syntax array[index]
+	3. using for-of loops
+	
+Which means that for the most part if you currently have an array data structure that you want to take less memory you can just wrap it in SharedArray and it should work for most cases.
+
+
+How to run: k6 run <script name.js>
+![image](https://user-images.githubusercontent.com/61636643/123273988-1c1f5180-d4d1-11eb-9b2a-a055e714091a.png)
 
 
 Reference: 
 https://github.com/cajames/performance-testing-with-k6
 
-Performance Testing your web app with k6![image](https://user-images.githubusercontent.com/61636643/123273184-69e78a00-d4d0-11eb-91da-8d37c387d75a.png)
+
 
 
 
