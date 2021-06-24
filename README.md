@@ -158,12 +158,12 @@ Supported operations include:
 Which means that for the most part if you currently have an array data structure that you want to take less memory you can just wrap it in SharedArray and it should work for most cases.
 
 
-How to run: k6 run <script name.js>
-![image](https://user-images.githubusercontent.com/61636643/123273988-1c1f5180-d4d1-11eb-9b2a-a055e714091a.png)
+**How to run:** k6 run <script name.js>
 
 
 Reference: 
 https://github.com/cajames/performance-testing-with-k6
+https://k6.io/docs/
 
 
 
