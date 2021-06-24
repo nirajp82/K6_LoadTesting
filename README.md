@@ -11,9 +11,9 @@ k6 is a developer-centric, free and open-source load testing tool built for maki
 
 ## Use cases
 k6 users are typically Developers, QA Engineers, and DevOps. They use k6 for testing the performance of APIs, microservices, and websites. Common k6 use cases are:
-* Load testing
+* **Load testing**: 
 k6 is optimized for minimal consumption of system resources. It’s a high-performance tool designed for running tests with high load (spike, stress, soak tests) in pre-production and QA environments.
-* Performance monitoring
+* **Performance monitoring**: 
 k6 provides great primitives for performance testing automation. You could run tests with a small amount of load to continuously monitor the performance of your production environment.
 
 
