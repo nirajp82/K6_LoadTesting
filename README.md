@@ -82,7 +82,7 @@ export let options = {
 	* Custom Metrics
 
 	* Checks: Checks are like asserts but differ in that they don't halt the execution, instead, they just store the result of the check, pass or fail, and let the script execution continue. Take a look at thresholds for a way to halt the execution. Checks are great for codifying assertions relating to HTTP requests/responses, making sure the response code is 2xx for example:
-	```
+```
 		import { check } from 'k6';
 		import http from 'k6/http';
 		
@@ -125,22 +125,20 @@ export let options = {
 In other words, you specify the pass criteria when defining your threshold, and if that expression evaluates to false at the end of the test, the whole test will be considered a fail.
 
 K6 Lifecycle:
-k6 LifeCycle:![image](https://github.com/nirajp82/K6_LoadTesting/blob/main/K6LifeCycle.png)
+![K6 LifeCycle](https://github.com/nirajp82/K6_LoadTesting/blob/main/K6LifeCycle.png)
+
 ```
 // 1. init code
-
 export function setup() {
   //
   let data = {};
   data.batchid = 1;
-  //This will be input of default method.
+  //This will be input of default method (VU Code).
   return data;
 }
-
 export default function (data) {
   // 3. VU code
 }
-
 export function teardown(data) {
   // 4. teardown code
 }
