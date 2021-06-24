@@ -158,6 +158,51 @@ Which means that for the most part if you currently have an array data structure
 
 
 **How to run:** k6 run <script name.js>
+```
+import http from 'k6/http';
+import { sleep } from 'k6';
+
+export default function () {
+  http.get('https://test.k6.io');
+  sleep(1);
+}
+//Running a 30-second, 10-VU load test	
+$ k6 run --vus 10 --duration 30s script.js
+```
+	
+* **batch( requests ):** Batch multiple HTTP requests together, to issue them in parallel over multiple TCP connections.
+```
+import http from 'k6/http';
+import { check } from 'k6';
+
+export default function () {
+  let req1 = {
+    method: 'GET',
+    url: 'https://httpbin.org/get',
+  };
+  let req2 = {
+    method: 'GET',
+    url: 'https://test.k6.io',
+  };
+  let req3 = {
+    method: 'POST',
+    url: 'https://httpbin.org/post',
+    body: {
+      hello: 'world!',
+    },
+    params: {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    },
+  };
+  let responses = http.batch([req1, req2, req3]);
+  // httpbin.org should return our POST data in the response body, so
+  // we check the third response object to see that the POST worked.
+  check(responses[2], {
+    'form data OK': (res) => JSON.parse(res.body)['form']['hello'] == 'world!',
+  });
+}	
+```
+
 
 
 Reference: 
