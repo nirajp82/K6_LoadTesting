@@ -203,7 +203,22 @@ export default function () {
 }	
 ```
 
+* **Environment variables**
+In k6, the environment variables are exposed through a global __ENV variable, a JS object. The source of the environment variables can be twofold. They could come from the local system and/or be explicitly passed to k6 using one or more -e NAME=VALUE CLI flags.
+```
+	$ k6 run -e MY_HOSTNAME=test.k6.io script.js
+	
+	import { check, sleep } from 'k6';
+	import http from 'k6/http';
 
+	export default function () {
+	  var r = http.get(`http://${__ENV.MY_HOSTNAME}/`);
+	  check(r, {
+	    'status is 200': (r) => r.status === 200,
+	  });
+	  sleep(5);
+	}	
+```	
 
 Reference: 
 https://github.com/cajames/performance-testing-with-k6
