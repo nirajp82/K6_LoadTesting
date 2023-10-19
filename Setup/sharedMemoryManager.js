@@ -1,26 +1,30 @@
-// sharedMemoryManager.js
-import { sharedArray } from 'k6/data';
+import { check } from 'k6';
+import http from 'k6/http';
+import { SharedArray } from 'k6/data';
 
-// Initialize shared array (for demonstration purposes)
-const sharedArrayName = 'mySharedArray';
-const arraySize = 10;
-const initialValue = 0;
-let initialized = false;
-
-//To avoid race conditions and ensure that shared resources are initialized correctly, use the __VU and __ITER built-in variables provided by K6. __VU represents the current Virtual User number,
-//and __ITER represents the current iteration for that Virtual User.
-
-//initialized will be set to true only for the first VU (where __VU === 1) during the first iteration (__ITER === 0).
-//This ensures that the initialization logic runs only once for the first VU during the first iteration, preventing race conditions.
-if (!initialized && __VU === 1 && __ITER === 0) {
-    sharedArray[sharedArrayName] = new Array(arraySize).fill(initialValue);
-    initialized = true;
+const n = parseInt(__ENV.N);
+function generateArray() {
+  const arr = new Array(n);
+  for (let i = 0; i < n; i++) {
+    arr[i] = { something: 'something else' + i, password: '12314561' };
+  }
+  return arr;
 }
 
-export function setSharedValue(key, value) {
-    sharedArray[sharedArrayName][key] = value;
+let data;
+if (__ENV.SHARED === 'true') {
+  data = new SharedArray('my data', generateArray);
+} else {
+  data = generateArray();
 }
 
-export function getSharedValue(key) {
-    return sharedArray[sharedArrayName][index];
+export default function () {
+  const iterationData = data[Math.floor(Math.random() * data.length)];
+  const res = http.post('https://httpbin.test.k6.io/anything', JSON.stringify(iterationData), {
+    headers: { 'Content-type': 'application/json' },
+  });
+  check(res, { 'status 200': (r) => r.status === 200 });
 }
+
+
+#https://k6.io/docs/javascript-api/k6-data/sharedarray/
