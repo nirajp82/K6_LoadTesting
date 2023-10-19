@@ -31,7 +31,7 @@ Options from each level will overwrite the options from the next level, with the
  then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs 
  over the next 10 minutes before finally ramping down to 0 VUs for another 
 3 minutes. 
-```
+```js
 export let options = { 
      stages: [ 
               { duration: '3m', target: 10 }, 
@@ -56,7 +56,7 @@ export let options = {
 	** They can be configured to run in sequence or parallel, or in any mix of the two.
 	** Different environment variables and metric tags can be set per scenario.
 		
-  ```
+  ```js
 		export let options = {
 		  scenarios: {
 		    example_scenario: {
@@ -82,7 +82,7 @@ export let options = {
 	* Custom Metrics
 
 	* Checks: Checks are like asserts but differ in that they don't halt the execution, instead, they just store the result of the check, pass or fail, and let the script execution continue. Take a look at thresholds for a way to halt the execution. Checks are great for codifying assertions relating to HTTP requests/responses, making sure the response code is 2xx for example:
-```
+```js
 		import { check } from 'k6';
 		import http from 'k6/http';
 		
@@ -104,7 +104,7 @@ export let options = {
 	     Thresholds analyze the performance metrics and determine the final test result (pass/fail). Thresholds are a essential for load-testing automation.
 	     Here is a sample script that specifies two thresholds, one evaluating the rate of http errors (http_req_failed metric) and one using the 95 percentile of all the response durations (the http_req_duration metric).
 
-```
+```js
 	import http from 'k6/http';
 	
 	export let options = {
@@ -127,7 +127,7 @@ In other words, you specify the pass criteria when defining your threshold, and 
 K6 Lifecycle:
 ![K6 LifeCycle](https://github.com/nirajp82/K6_LoadTesting/blob/main/K6LifeCycle.png)
 
-```
+```js
 // 1. init code
 export function setup() {
   //
@@ -158,7 +158,7 @@ Which means that for the most part if you currently have an array data structure
 
 
 **How to run:** k6 run <script name.js>
-```
+```js
 import http from 'k6/http';
 import { sleep } from 'k6';
 
@@ -171,7 +171,7 @@ $ k6 run --vus 10 --duration 30s script.js
 ```
 	
 * **batch( requests ):** Batch multiple HTTP requests together, to issue them in parallel over multiple TCP connections.
-```
+```js
 import http from 'k6/http';
 import { check } from 'k6';
 
@@ -205,7 +205,7 @@ export default function () {
 
 * **Environment variables**
 In k6, the environment variables are exposed through a global __ENV variable, a JS object. The source of the environment variables can be twofold. They could come from the local system and/or be explicitly passed to k6 using one or more -e NAME=VALUE CLI flags.
-```
+```js
 	$ k6 run -e MY_HOSTNAME=test.k6.io script.js
 	
 	import { check, sleep } from 'k6';
