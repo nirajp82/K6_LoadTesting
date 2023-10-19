@@ -46,10 +46,10 @@ export let options = {
    *	**Vus (Virtual User):** An integer value specifying the number of VUs to run concurrently, used together with the iterations or duration options. If you'd like more control look at the stages option or scenarios.
    *	**RPS:** The maximum number of requests to make per second, in total across all VUs.
    *	**Scenarios:**  Scenarios allow us to make in-depth configurations to how VUs and iterations are scheduled. This makes it possible to model diverse traffic patterns in load tests. Benefits of using scenarios include:
-   *		** Multiple scenarios can be declared in the same script, and each one can independently execute a different JavaScript function, which makes organizing tests easier and more flexible.
-   *		** Every scenario can use a distinct VU and iteration scheduling pattern, powered by a purpose-built executor. This enables modeling of advanced execution patterns which can better simulate real-world traffic.
-   *		** They can be configured to run in sequence or parallel, or in any mix of the two.
-   *		** Different environment variables and metric tags can be set per scenario.
+   	*	Multiple scenarios can be declared in the same script, and each one can independently execute a different JavaScript function, which makes organizing tests easier and more flexible.
+   	*	Every scenario can use a distinct VU and iteration scheduling pattern, powered by a purpose-built executor. This enables modeling of advanced execution patterns which can better simulate real-world traffic.
+   	*	They can be configured to run in sequence or parallel, or in any mix of the two.
+   	*	Different environment variables and metric tags can be set per scenario.
 		
   ```js
 		export let options = {
