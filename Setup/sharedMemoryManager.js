@@ -17,10 +17,10 @@ if (!initialized && __VU === 1 && __ITER === 0) {
     initialized = true;
 }
 
-export function setSharedValue(index, value) {
-    sharedArray[sharedArrayName][index] = value;
+export function setSharedValue(key, value) {
+    sharedArray[sharedArrayName][key] = value;
 }
 
-export function getSharedValue(index) {
+export function getSharedValue(key) {
     return sharedArray[sharedArrayName][index];
 }
