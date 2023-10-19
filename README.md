@@ -25,11 +25,9 @@ command-line flags > environment variables > exported script options > config fi
 
 Options from each level will overwrite the options from the next level, with the command-line flags having the highest precedence.
 
-* **Stages: ** A list of VU { target: ..., duration: ... } objects that specify the target number of VUs to ramp up or down to for a specific period. Available in k6 run and k6 cloud commands.
+* **Stages:** A list of VU { target: ..., duration: ... } objects that specify the target number of VUs to ramp up or down to for a specific period. Available in k6 run and k6 cloud commands.
 
-// The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes, 
- then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs 
- over the next 10 minutes before finally ramping down to 0 VUs for another 
+// The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes, then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs over the next 10 minutes before finally ramping down to 0 VUs for another 
 3 minutes. 
 ```js
 export let options = { 
@@ -41,20 +39,17 @@ export let options = {
 };
 ```
 	
- * **Iterations:** An integer value, specifying the total number of iterations of the default function to execute in the test run, as opposed to specifying a duration of time during which the script would run in a loop.
-	     Together with the vus option, iterations is a shortcut for a single scenario with a shared iterations executor.
-	    By default, the maximum duration of a shared-iterations scenario is 10 minutes. You can adjust that time via the maxDuration option of the scenario, or by also specifying the duration global shortcut option.
-	    Note that iterations aren't fairly distributed with this option, and a VU that executes faster will complete more iterations than others. Each VU will try to complete as many iterations as possible, "stealing" them from the total number of iterations for the test. So, depending on iteration times, some VUs may complete more iterations than others. If you want guarantees that every VU will complete a specific, fixed number of iterations, use the per-VU iterations executor.
-	
-	* **Vus (Virtual User):** An integer value specifying the number of VUs to run concurrently, used together with the iterations or duration options. If you'd like more control look at the stages option or scenarios.
-	
-	* **RPS:** The maximum number of requests to make per second, in total across all VUs. 
-	
-	* **Scenarios:**  Scenarios allow us to make in-depth configurations to how VUs and iterations are scheduled. This makes it possible to model diverse traffic patterns in load tests. Benefits of using scenarios include:
-	** Multiple scenarios can be declared in the same script, and each one can independently execute a different JavaScript function, which makes organizing tests easier and more flexible.
-	** Every scenario can use a distinct VU and iteration scheduling pattern, powered by a purpose-built executor. This enables modeling of advanced execution patterns which can better simulate real-world traffic.
-	** They can be configured to run in sequence or parallel, or in any mix of the two.
-	** Different environment variables and metric tags can be set per scenario.
+ * **Iterations:** An integer value, specifying the total number of iterations of the default function to execute in the test run, as opposed to specifying a duration of time during which the script would run in a loop. Together with the vus option, iterations is a shortcut for a single scenario with a shared iterations executor.
+   	By default, the maximum duration of a shared-iterations scenario is 10 minutes. You can adjust that time via the maxDuration option of the scenario, or by also specifying the duration global shortcut option.
+   	Note that iterations aren't fairly distributed with this option, and a VU that executes faster will complete more iterations than others. Each VU will try to complete as many iterations as possible, "stealing" them from the total number of iterations for the test. So, depending on iteration times, some VUs may complete more iterations than others. If you want guarantees that every VU will complete a specific, fixed number of iterations, use the per-VU iterations executor.
+
+   *	**Vus (Virtual User):** An integer value specifying the number of VUs to run concurrently, used together with the iterations or duration options. If you'd like more control look at the stages option or scenarios.
+   *	**RPS:** The maximum number of requests to make per second, in total across all VUs.
+   *	**Scenarios:**  Scenarios allow us to make in-depth configurations to how VUs and iterations are scheduled. This makes it possible to model diverse traffic patterns in load tests. Benefits of using scenarios include:
+   *		** Multiple scenarios can be declared in the same script, and each one can independently execute a different JavaScript function, which makes organizing tests easier and more flexible.
+   *		** Every scenario can use a distinct VU and iteration scheduling pattern, powered by a purpose-built executor. This enables modeling of advanced execution patterns which can better simulate real-world traffic.
+   *		** They can be configured to run in sequence or parallel, or in any mix of the two.
+   *		** Different environment variables and metric tags can be set per scenario.
 		
   ```js
 		export let options = {
