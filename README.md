@@ -163,6 +163,9 @@ export default function () {
 }
 //Running a 30-second, 10-VU load test	
 $ k6 run --vus 10 --duration 30s script.js
+
+//Running a only one iteration
+k6 run --vus 1 --iterations 1 C:\code\UsefulInfo\PerfTest\main.js
 ```
 	
 * **batch( requests ):** Batch multiple HTTP requests together, to issue them in parallel over multiple TCP connections.
